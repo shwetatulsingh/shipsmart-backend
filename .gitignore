@@ -1,0 +1,46 @@
+# Build output and compiled files
+target/
+build/
+.gradle/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+HELP.md
+
+# Node (future React/Angular/Node phases)
+node_modules/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code / Eclipse
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# macOS
+.DS_Store
+
+# Logs and temp files
+*.log
+logs/
+*.tmp
+*.swp
+
+# Local secrets — never commit these
+.env
+.env.*
+!.env.example
+application-local.yml
+application-secrets.yml
+*.pem
+*.key
+*.p12
+*.jks

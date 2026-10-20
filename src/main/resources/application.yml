@@ -1,0 +1,54 @@
+# ShipSmart backend configuration.
+# Every value that differs between environments reads an environment
+# variable first and falls back to a local-development default:
+#   ${ENV_VAR:default}
+
+spring:
+  application:
+    name: shipsmart
+  jackson:
+    # API timestamps are serialized in UTC as ISO-8601 strings
+    time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false
+  lifecycle:
+    # Give in-flight requests time to finish on shutdown
+    timeout-per-shutdown-phase: 20s
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+  error:
+    # Never leak internals in Spring's default error page/JSON.
+    # Phase 3 replaces this with our own consistent error response.
+    include-stacktrace: never
+    include-message: never
+    include-binding-errors: never
+    include-exception: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Only safe endpoints. env, beans, configprops, heapdump etc. stay hidden.
+        include: health,info
+  endpoint:
+    health:
+      # Don't reveal component details (DB host, disk paths) to anonymous callers
+      show-details: never
+      # Adds /actuator/health/liveness and /actuator/health/readiness for Kubernetes later
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ShipSmart
+    description: Shipment management backend
+
+logging:
+  level:
+    root: INFO
+    com.shipsmart: ${SHIPSMART_LOG_LEVEL:DEBUG}

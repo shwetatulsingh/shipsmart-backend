@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        The Spring Boot parent manages versions for every Spring/third-party
+        library we use, so dependencies below need no <version> tags.
+        3.5.x is the final Spring Boot 3 line. To move to a newer 3.5 patch,
+        change only this version.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.9</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.shipsmart</groupId>
+    <artifactId>shipsmart-backend</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>ShipSmart Backend</name>
+    <description>Shipment management backend for the ShipSmart logistics platform</description>
+
+    <properties>
+        <!-- The parent turns this into maven.compiler.release=17 -->
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- Phase 1: REST layer (embedded Tomcat + Spring MVC + Jackson) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Phase 1: health/info endpoints under /actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--
+            Added in later phases, not now:
+              Phase 2: spring-boot-starter-data-jpa, mysql-connector-j, flyway-core, flyway-mysql
+              Phase 3: spring-boot-starter-validation
+              Phase 5: spring-kafka
+        -->
+
+        <!-- Tests: JUnit 5, Mockito, AssertJ, Spring Test, TestRestTemplate -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- Writes build-info.properties so /actuator/info shows version and build time -->
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

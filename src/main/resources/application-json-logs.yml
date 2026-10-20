@@ -1,0 +1,7 @@
+# Activate with SPRING_PROFILES_ACTIVE=json-logs
+# Emits one JSON object per log line (Elastic Common Schema), which
+# Elasticsearch/Kibana or any log shipper can ingest without parsing rules.
+logging:
+  structured:
+    format:
+      console: ecs
