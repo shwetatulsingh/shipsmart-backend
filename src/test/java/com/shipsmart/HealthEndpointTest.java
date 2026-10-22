@@ -8,12 +8,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Starts the full application on a random port and calls it over real HTTP.
- * Needs no database, Kafka or Docker.
+ * Uses the in-memory H2 database from application-test.yml, so it needs
+ * no MySQL, Kafka or Docker.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class HealthEndpointTest {
 
     @Autowired
